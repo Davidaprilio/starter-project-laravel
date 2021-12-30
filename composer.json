@@ -1,0 +1,24 @@
+{
+    "name": "davidaprilio/starter-project-laravel",
+    "description": "My Starter Project with Laravel",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Davidaprilio\\LaravelStarter\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Dav0x0",
+            "email": "david1.aprilio4@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Davidaprilio\\LaravelStarter\\StarterProjectLaravelServiceProvider"
+            ]
+        }
+    },
+    "require": {}
+}
