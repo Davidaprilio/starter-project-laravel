@@ -35,7 +35,7 @@ class StarterProjectLaravelServiceProvider extends ServiceProvider
             ]);
         }
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'starterPack');
-        // $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         // $this->loadRoutesFrom(__DIR__.'/../routes/livewire.php');
         $this->configurePublishing();
 
@@ -74,6 +74,7 @@ class StarterProjectLaravelServiceProvider extends ServiceProvider
     protected function loadAllComponent()
     {
         $this->registerComponent('sapaan');
+        $this->registerComponent('provinsi');
         $this->callAfterResolving(BladeCompiler::class, function () {
         });
     }
