@@ -74,7 +74,10 @@ class StarterProjectLaravelServiceProvider extends ServiceProvider
     protected function loadAllComponent()
     {
         $this->registerComponent('form-edit-profile');
+        $this->registerComponent('form-edit-photo-profile');
         $this->registerComponent('scripts');
+
+        $this->registerComponent('img');
 
         $this->registerComponent('sapaan');
         $this->registerComponent('provinsi');
