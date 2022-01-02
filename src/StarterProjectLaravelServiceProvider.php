@@ -75,6 +75,9 @@ class StarterProjectLaravelServiceProvider extends ServiceProvider
     {
         $this->registerComponent('sapaan');
         $this->registerComponent('provinsi');
+        $this->registerComponent('kecamatan');
+        $this->registerComponent('daerah');
+        $this->registerComponent('kota');
         $this->callAfterResolving(BladeCompiler::class, function () {
         });
     }

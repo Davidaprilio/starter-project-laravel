@@ -1,13 +1,20 @@
 @props([
     'parentClass' => 'mb-3',
-    'target' => '#kota'
+    'value' => false
 ])
 {{-- @dd($attributes) --}}
 <x-lb5-select :parentClass="$parentClass" :attributes="$attributes"
-    x-data="{ prov: [] }"
-    x-init="prov = await (await fetch('{{ url('/api/provinsi') }}')).json()"
-    >
-    <template x-for="pv in prov" :key="pv.id">
-        <option x-init="$el.setAttribute('value', pv.id)" x-text="pv.name"></option>
-    </template>
+    x-data="{
+        oldValue: {{ $value ? $value : 11 }},
+        getProv: function() {
+            provId = this.oldValue;
+            fetch('{{ url('/api/provinsi') }}').then(res => res.json()).then(res => {
+                prov = res;
+                createOption($el, res)
+                if(this.oldValue) { $el.value = this.oldValue; this.oldValue = false }
+            })
+        }
+    }"
+    x-init="getProv();"
+    x-on:change="provId = $el.value">
 </x-lb5-select>
