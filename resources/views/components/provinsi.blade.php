@@ -10,7 +10,7 @@
             provId = this.oldValue;
             fetch('{{ url('/api/provinsi') }}').then(res => res.json()).then(res => {
                 prov = res;
-                createOption($el, res)
+                createOption($el, res, false)
                 if(this.oldValue) { $el.value = this.oldValue; this.oldValue = false }
             })
         }

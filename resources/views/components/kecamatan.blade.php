@@ -9,10 +9,10 @@
         getKec: async function(id) {
             kec = [];
             kec = await getApi('{{ url('/api/kecamatan') }}/'+id);
-            createOption($el, kec)
+            createOption($el, kec, false)
             if(this.oldValue) { $el.value = this.oldValue; this.oldValue = false }
         }
     }"
     x-on:change="kecId = $el.value"
-    x-init="getKec(kotaId); $watch('kotaId', value => getKec(value))">
+    x-init="$watch('kotaId', value => getKec(value))">
 </x-lb5-select>

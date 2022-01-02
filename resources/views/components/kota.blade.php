@@ -5,12 +5,13 @@
 {{-- @dd($attributes) --}}
 <x-lb5-select :parentClass="$parentClass" :attributes="$attributes"
     x-data="{
-        oldValue: {{ $value ? $value : 1107 }},
+        oldValue: {{ $value ? $value : 'false' }},
         getKota: async function(id) {
-            kotaId = this.oldValue;
             kota = [];
             kota = await getApi('{{ url('/api/kota') }}/'+id);
-            createOption($el, kota)
+            createOption($el, kota, false)
+            
+            kotaId = this.oldValue ? this.oldValue : $el.value;
             if(this.oldValue) { $el.value = this.oldValue; this.oldValue = false }
         }
     }"
