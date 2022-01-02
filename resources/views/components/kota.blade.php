@@ -5,7 +5,7 @@
 {{-- @dd($attributes) --}}
 <x-lb5-select :parentClass="$parentClass" :attributes="$attributes"
     x-data="{
-        oldValue: {{ $value ? $value : 'false' }},
+        oldValue: {{ $value ? $value : 1107 }},
         getKota: async function(id) {
             kotaId = this.oldValue;
             kota = [];
