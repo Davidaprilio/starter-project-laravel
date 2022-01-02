@@ -73,6 +73,9 @@ class StarterProjectLaravelServiceProvider extends ServiceProvider
 
     protected function loadAllComponent()
     {
+        $this->registerComponent('form-edit-profile');
+        $this->registerComponent('scripts');
+
         $this->registerComponent('sapaan');
         $this->registerComponent('provinsi');
         $this->registerComponent('kecamatan');
@@ -90,7 +93,7 @@ class StarterProjectLaravelServiceProvider extends ServiceProvider
      */
     protected function registerComponent(string $component)
     {
-        Blade::component('starterPack::components.'.$component, 'starter-'.$component);
+        Blade::component('starterPack::components.'.$component, 'pack-'.$component);
     }
 
 }
