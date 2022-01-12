@@ -2,8 +2,10 @@
 
 namespace Davidaprilio\LaravelStarter\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -16,7 +18,7 @@ class UserController extends Controller
     {
         return view('user.index', [
             'users' => User::all(),
-            'use_livewire' => true
+            'use_livewire' => true,
         ]);
     }
 
@@ -85,5 +87,45 @@ class UserController extends Controller
     {
         $user->delete();
         return redirect()->back();
+    }
+
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function editRole(User $user)
+    {
+        return view('user.edit-role', [
+            'user' => $user,
+            'roles' => Role::where('id', '>=', Auth::user()->role_id)->get()
+        ]);
+    }
+
+    /**
+     * Update the specified resource in database.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function updateRole(Request $request, User $user)
+    {
+        $request->validate([
+            'role' => 'required'
+        ], [
+            'required' => 'Harus memilih role'
+        ]);
+        $update = $user->update([
+            'role_id' => $request->role
+        ]);
+        if ($update) {
+            $user->refresh();
+            return redirect()->back()->with('role-changed', "Role berhasil dirubah ke {$user->role->name}");
+        } else {
+            return redirect()->back()->withError(['role-cant-changed' => 'Role gagal dirubah']);
+        }
     }
 }

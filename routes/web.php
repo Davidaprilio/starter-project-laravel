@@ -24,8 +24,9 @@ Route::middleware('web')->group(function () {
             Route::get('users', [Controllers\UserController::class, 'index'])->name('index');
 
             Route::prefix('user')->group(function () {
-                // Route::get('/{user:id}', [Controllers\UserController::class, 'show'])->name('show');
                 Route::delete('/{user:id}', [Controllers\UserController::class, 'destroy'])->name('delete');
+                Route::get('/{user:id}/edit-role', [Controllers\UserController::class, 'editRole'])->name('edit.role');
+                Route::post('/{user:id}/edit-role', [Controllers\UserController::class, 'updateRole']);
             });
 
             Route::prefix('/profile')->group(function () {
