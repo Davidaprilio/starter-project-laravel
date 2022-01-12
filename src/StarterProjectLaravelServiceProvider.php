@@ -34,9 +34,8 @@ class StarterProjectLaravelServiceProvider extends ServiceProvider
                 InstallStarterProjectLaravel::class,
             ]);
         }
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'starterPack');
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
-        // $this->loadRoutesFrom(__DIR__.'/../routes/livewire.php');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'starterPack');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
         $this->configurePublishing();
 
         $this->loadAllComponent();
@@ -49,7 +48,7 @@ class StarterProjectLaravelServiceProvider extends ServiceProvider
      */
     protected function configurePublishing()
     {
-        if (! $this->app->runningInConsole()) {
+        if (!$this->app->runningInConsole()) {
             return;
         }
 
@@ -60,12 +59,7 @@ class StarterProjectLaravelServiceProvider extends ServiceProvider
 
         # Views
         $this->publishes([
-            __DIR__.'/../resources/views/auth' => resource_path('views/auth'),
-        ], 'start-project');
-
-        # Migrations
-        $this->publishes([
-            __DIR__.'/../database/migrations/2021_12_25_173044_add_new_fields_to_users_table.php' => database_path('migrations/2021_12_25_173044_add_new_fields_to_users_table.php'),
+            __DIR__ . '/../resources/views/auth' => resource_path('views/auth'),
         ], 'start-project');
     }
 
@@ -75,15 +69,17 @@ class StarterProjectLaravelServiceProvider extends ServiceProvider
     {
         $this->registerComponent('form-edit-profile');
         $this->registerComponent('form-edit-photo-profile');
-        $this->registerComponent('scripts');
+        $this->registerComponent('form-change-password');
 
-        $this->registerComponent('img');
+        $this->registerComponent('daerah');
+        $this->registerComponent('provinsi');
+        $this->registerComponent('kota');
+        $this->registerComponent('kecamatan');
 
         $this->registerComponent('sapaan');
-        $this->registerComponent('provinsi');
-        $this->registerComponent('kecamatan');
-        $this->registerComponent('daerah');
-        $this->registerComponent('kota');
+        $this->registerComponent('img');
+        $this->registerComponent('scripts');
+
         $this->callAfterResolving(BladeCompiler::class, function () {
         });
     }
@@ -96,7 +92,6 @@ class StarterProjectLaravelServiceProvider extends ServiceProvider
      */
     protected function registerComponent(string $component)
     {
-        Blade::component('starterPack::components.'.$component, 'pack-'.$component);
+        Blade::component('starterPack::components.' . $component, 'pack-' . $component);
     }
-
 }
