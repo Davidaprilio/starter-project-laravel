@@ -56,19 +56,23 @@
       }
     }
 
-    function previewImage(fileIn, elImg) {
+    function previewImage(fileIn, elImg, btnSave) {
       console.log(fileIn, elImg)
       const oFReader = new FileReader();
       oFReader.readAsDataURL(fileIn.files[0]);
       oFReader.onload = function(oFREvent) {
         const imgPrev = document.querySelector(elImg);
         imgPrev.style.backgroundImage = `url('${oFREvent.target.result}')`;
+        document.querySelector(btnSave).removeAttribute('disabled');
       }
     }
 
-    function previewRemoveImage(elImg) {
+    function previewRemoveImage(fileIn, elImg, btnSave) {
       const imgPrev = document.querySelector(elImg);
+      const fileEl = document.querySelector(fileIn);
+      fileEl.value = null;
       imgPrev.style.backgroundImage = `url('https://ui-avatars.com/api/?name=david%20aprilio&color=7F9CF5&background=EBF4FF')`;
+      document.querySelector(btnSave).removeAttribute('disabled');
     }
 
 
