@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Davidaprilio\LaravelStarter\Http\Controllers;
 
 use App\Actions\DavPack\PasswordRules;
 use App\Models\User;
@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
-
-use function PHPUnit\Framework\isNull;
 
 class ProfileController extends Controller
 {
@@ -34,18 +32,22 @@ class ProfileController extends Controller
             'sapaan' => $request->sapaan,
             'panggilan' => $request->panggilan,
             'jk' => $request->jk,
-            'name' => $request->nama,
+            'name' => $request->name,
             'email' => $request->email,
             'pekerjaan' => $request->pekerjaan,
             'agama' => $request->agama,
-            "photo" => null,
             'phone' => $request->phone,
             'birthday' => $request->tgllahir,
-            'provinsi' => null,
-            'kota' => null,
-            'desa' => null,
+            'provinsi' => $request->prov,
+            'kota' => $request->kota,
+            'kecamatan' => $request->kec,
         ];
-        dd($user);
+        $update = $user->update($data);
+        if ($update) {
+            return redirect()->back()->with('profile-updated', 'Profile berhasil di perbarui');
+        } else {
+            return redirect()->back()->withError('profile-cant-updated', 'Profile gagal di perbarui');
+        }
     }
 
 
@@ -53,11 +55,11 @@ class ProfileController extends Controller
     {
         $request->validate([
             'photo_profile' => 'image|mimes:jpg,png,jpeg'
-        ],[
+        ], [
             'image' => 'File harus berupa gambar',
             'mimes' => 'Jenis gambar tidak didukung'
         ]);
-        
+
         $user = $request->user();
         $user == null ? abort('403') : false;
 
@@ -65,7 +67,7 @@ class ProfileController extends Controller
         if ($user->photo != null) {
             Storage::delete($user->photo);
         }
-        
+
         # Simpan data baru
         $file = $request->file('photo_profile');
         if ($file) {
@@ -80,7 +82,7 @@ class ProfileController extends Controller
         } else {
             $stored = null;
         }
-        
+
         $update = $user->update(['photo' => $stored]);
         if ($update) {
             return redirect()->back()->with('changed-photo', 'Photo profile berhasil disimpan');
@@ -121,8 +123,8 @@ class ProfileController extends Controller
         $request->validate([
             'current_password' => 'required',
             'password' => "{$this->passwordRules}|confirmed",
-        ],$this->messageValidationRules);
-        
+        ], $this->messageValidationRules);
+
         if (password_verify($request->password, $request->user()->password)) {
             // dd($request->password);
             $updated = $request->user()->update([
