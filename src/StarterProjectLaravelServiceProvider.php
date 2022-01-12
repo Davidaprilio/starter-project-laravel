@@ -35,6 +35,7 @@ class StarterProjectLaravelServiceProvider extends ServiceProvider
             ]);
         }
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'starterPack');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
         $this->configurePublishing();
 
