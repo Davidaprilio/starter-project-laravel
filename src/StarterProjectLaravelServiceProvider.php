@@ -72,13 +72,16 @@ class StarterProjectLaravelServiceProvider extends ServiceProvider
         $this->registerComponent('form-edit-photo-profile');
         $this->registerComponent('form-change-password');
         $this->registerComponent('form-user-change-role');
+        $this->registerComponent('form-register');
 
+        $this->registerComponent('daerah-bundle');
         $this->registerComponent('daerah');
         $this->registerComponent('provinsi');
         $this->registerComponent('kota');
         $this->registerComponent('kecamatan');
 
         $this->registerComponent('sapaan');
+        $this->registerComponent('gender');
         $this->registerComponent('img');
         $this->registerComponent('scripts');
 
